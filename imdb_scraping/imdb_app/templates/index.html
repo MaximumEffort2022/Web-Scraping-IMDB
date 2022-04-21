@@ -44,8 +44,12 @@
                 </tbody>
             </table>
         </div>
+    </section>
+    <section class="mt-5">
         <div>
-            
+            {% if chart %}
+                <img src="data:image/png;base64, {{chart|safe}}" alt="plot">
+            {% endif %}
         </div>
     </section>
 

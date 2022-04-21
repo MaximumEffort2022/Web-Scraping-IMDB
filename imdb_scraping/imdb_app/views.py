@@ -1,15 +1,11 @@
 from django.shortcuts import render
-
+from .utils import get_plot
 # Create your views here.
 def home_view(request):
     import pandas as pd
     import numpy as np
     from bs4 import BeautifulSoup as bs
     import requests
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-    from io import BytesIO
-    import base64
 
     url = 'https://www.imdb.com/chart/top/'
     response = requests.get(url)
@@ -42,5 +38,7 @@ def home_view(request):
     data['movie_rating'] = data['movie_rating'].astype(float)
     data['movie_release_year'] = data['movie_release_year'].astype(int)
 
-    plot = sns.scatterplot(data['movie_release_year'], data['movie_rating'])
-    return render(request, 'index.html', {'data': data, 'plot': plot})
+    x = data['movie_rating']
+    y = data['movie_release_year']
+    chart = get_plot(x,y)
+    return render(request, 'index.html', {'chart':chart, 'data':data})
