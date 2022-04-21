@@ -8,6 +8,8 @@ def home_view(request):
     import requests
     import seaborn as sns
     import matplotlib.pyplot as plt
+    from io import BytesIO
+    import base64
 
     url = 'https://www.imdb.com/chart/top/'
     response = requests.get(url)
@@ -36,4 +38,9 @@ def home_view(request):
     'movie_rating' : movie_rating
     }
     data = pd.DataFrame(movie_dictionary)
-    return render(request, 'index.html', {'data': data})
+
+    data['movie_rating'] = data['movie_rating'].astype(float)
+    data['movie_release_year'] = data['movie_release_year'].astype(int)
+
+    plot = sns.scatterplot(data['movie_release_year'], data['movie_rating'])
+    return render(request, 'index.html', {'data': data, 'plot': plot})
