@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Visualisations
+{% endblock %}
+
+{% block pageTitle %}
+    <center>
+        <h1>Plotting Movie year with rating</h1>
+    </center>
+{% endblock %}
+
+{% block pageredirect %}
+    <div class="clearfix">
+        <a href="{% url 'home' %}" class="btn btn-primary float-right mr-5">Home</a>
+    </div>
+{% endblock %}
+
+{% block pageSearch %}
+    
+{% endblock %}
+
+{% block content %}
+    <section class="mt-5 container">
+        <div class="center">
+            {% if chart2 %}
+                <img src="data:image/png;base64, {{chart2|safe}}" alt="plot">
+            {% endif %}
+        </div>
+    </section>
+    <section class="mt-5 container">
+        <div class="center">
+            {% if chart %}
+                <img src="data:image/png;base64, {{chart|safe}}" alt="plot">
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
